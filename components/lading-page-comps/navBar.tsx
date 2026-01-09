@@ -7,7 +7,7 @@ const NavBar = () => {
 			<Container>
 				<div className='flex items-center justify-between py-4'>
 					<div className=''>
-						<h1 className='text-2xl font-bold tracking-tight'>ConfessIT</h1>
+						<h1 className='text-xl font-bold tracking-tight'>SHADOWNCHAT</h1>
 					</div>
 					<Button className='rounded-full px-6'>
 						Create Account
