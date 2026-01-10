@@ -5,65 +5,66 @@ import { Button } from '../ui/button'
 import { LogOut, LucideCurrency, User } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import LocationAutocomplete from '../searchLocation/LocationAutocomplete'
+import { CreateRoom } from './Create-Room'
+import { userStore } from '@/stores/user-store'
+import { toast } from 'sonner'
+import { SelectRadius } from './SelectRadius'
 
 const DashboardNavBar = () => {
-	const [userName, setUserName] = useState<string | null>(null)
+	const setCords = userStore((state) => state.setCoordinates)
 	const router = useRouter()
+	const userName = userStore((state) => state.name)
+	const cleanShit = userStore((state) => state.clearUser)
 	const [showP, setShowP] = useState(false)
-	useEffect(() => {
-		const storedName = localStorage.getItem('userName')
-		setUserName(storedName)
-	}, [])
+
 
 	const handleLogout = () => {
-		localStorage.removeItem('userName')
+		cleanShit()
 		localStorage.removeItem('token')
 		router.push('/')
 	}
 
 	return (
-		<nav className='border-b border-gray-100 bg-white sticky top-0 z-50'>
-
-			<div className='flex items-center justify-between py-4'>
-				<div className='flex items-center gap-2'>
-					<h1 className='text-2xl font-bold tracking-tight text-primary'>ConfessIT</h1>
-					<span className='bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full font-medium'>
-						Dashboard
+		<nav className='border-b border-white/5 bg-black sticky top-0 z-50 px-6'>
+			<div className='flex items-center justify-between py-3'>
+				<div className='flex items-center gap-3'>
+					<h1 className='text-2xl font-black tracking-tighter text-white'>ConfessIT</h1>
+					<span className='bg-white/10 text-gray-400 text-[10px] px-2 py-0.5 rounded-md font-bold uppercase tracking-widest border border-white/5'>
+						Premium Dashboard
 					</span>
 				</div>
 
 				<div className='flex items-center gap-6'>
-					<div className='flex items-center gap-2 text-gray-700'>
-						<div className='w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center'>
-							<User size={18} />
+					<div className='flex items-center gap-3 text-gray-300'>
+						<div className='w-8 h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/10'>
+							<User size={16} className="text-white" />
 						</div>
-						<span className='font-medium'>{userName || 'Anonymous'}</span>
+						<span className='font-bold text-sm'>{userName || 'Anonymous'}</span>
 					</div>
-					<LocationAutocomplete onSelect={(location) => { console.log(location) }} />
+					<LocationAutocomplete onSelect={(location) => {
+						setCords([location.lat, location.lng])
+						toast.success('location set')
+					}} />
 					<div className='relative '>
-						<Button onMouseLeave={() => { setShowP(!showP) }} onMouseEnter={() => setShowP(!showP)} className='z-1 ' onClick={() => {
+						<Button onMouseLeave={() => { setShowP(!showP) }} onMouseEnter={() => setShowP(!showP)} className='z-1 bg-white/10 hover:bg-white/20 text-white border-white/10' onClick={() => {
 							navigator.geolocation.getCurrentPosition((location) => { console.log(`${location.coords.longitude},${location.coords.latitude}`) })
 						}}><LucideCurrency /></Button>
-						<p className={` ${showP ? 'absolute text-[12px] w-[140px] rounded-2xl text-white bg-black/80 px-2   -bottom-4 z-10' : 'hidden'}`}>Use Current Location</p>
+						<p className={` ${showP ? 'absolute text-[12px] w-[140px] rounded-2xl text-white bg-black/90 border border-white/10 px-2   -bottom-4 z-10' : 'hidden'}`}>Use Current Location</p>
 					</div>
-					<Button
-						variant='ghost'
-						size='sm'
-					>
-						Create Room
-					</Button>
+
+					<CreateRoom />
+
 					<Button
 						variant='ghost'
 						size='sm'
 						onClick={handleLogout}
-						className='text-gray-500 hover:text-red-600 hover:bg-red-50'
+						className='text-gray-500 hover:text-white hover:bg-red-600/20'
 					>
 						<LogOut size={18} className='mr-2' />
 						Logout
 					</Button>
 				</div>
 			</div>
-
 		</nav>
 	)
 }
