@@ -47,7 +47,10 @@ const DashboardNavBar = () => {
 					}} />
 					<div className='relative '>
 						<Button onMouseLeave={() => { setShowP(!showP) }} onMouseEnter={() => setShowP(!showP)} className='z-1 bg-white/10 hover:bg-white/20 text-white border-white/10' onClick={() => {
-							navigator.geolocation.getCurrentPosition((location) => { console.log(`${location.coords.longitude},${location.coords.latitude}`) })
+							navigator.geolocation.getCurrentPosition((location) => {
+								setCords([location.coords.latitude, location.coords.longitude])
+								toast.success('current location added')
+							})
 						}}><LucideCurrency /></Button>
 						<p className={` ${showP ? 'absolute text-[12px] w-[140px] rounded-2xl text-white bg-black/90 border border-white/10 px-2   -bottom-4 z-10' : 'hidden'}`}>Use Current Location</p>
 					</div>
