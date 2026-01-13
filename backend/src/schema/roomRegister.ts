@@ -4,7 +4,7 @@ export const roomZodSchema = z.object({
 	name: z
 		.string()
 		.min(1, "Room name is required")
-		.max(15, "Max 15 letters are allowed"),
+		.max(30, "Max 15 letters are allowed"),
 
 	location: z.object({
 		type: z.literal("Point"),
