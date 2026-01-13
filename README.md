@@ -1,5 +1,6 @@
 # SHADOW | Anonymous Proximity Chat
 ### *You are here, and so are they.*
+🌍 **App:** [Live Link](https://shadow-proximatychat.netlify.app)
 ![Shadow Preview](public/ogimage.png)
 
 ## 📡 Transmission Incoming...
