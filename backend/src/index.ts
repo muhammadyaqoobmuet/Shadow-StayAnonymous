@@ -1,4 +1,4 @@
-import express from "express"
+import express, { type Request, type Response } from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
@@ -34,6 +34,7 @@ Promise.resolve(connectDb())
 app.use(express.json())
 app.use(cors())
 app.use(helmet())
+app.use('/health', limiter, (res: Response) => res.status(200).json({ health: "ok" }))
 app.use('/api/auth', limiter, userAuthRouter)
 app.use('/api/room', roomRouter)
 app.use('/api/message', messageRouter)
@@ -43,7 +44,7 @@ const httpServer = createServer(app)
 
 const io = new Server(httpServer, {
 	cors: {
-		origin: "http://localhost:3001",
+		origin: "*",
 		allowedHeaders: "*"
 	}
 })
@@ -141,6 +142,7 @@ io.on("connection", async (socket: Socket) => {
 	})
 })
 app.use(globalErrorHandler)
-httpServer.listen(3000, () => {
-	console.log("socket server running 🚀")
+const PORT = process.env.PORT || 3000;
+httpServer.listen(Number(PORT), "0.0.0.0", () => {
+	console.log(`socket server running on port ${PORT} 🚀`)
 })
