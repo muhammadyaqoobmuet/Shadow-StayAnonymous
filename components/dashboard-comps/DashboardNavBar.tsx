@@ -21,7 +21,7 @@ const DashboardNavBar = () => {
 
 	const handleLogout = () => {
 		clearUser()
-		localStorage.removeItem('token')
+		localStorage.clear() // Clear all storage to ensure no data persists
 		router.push('/')
 	}
 
@@ -114,10 +114,7 @@ const DashboardNavBar = () => {
 				<div className="h-8 w-px bg-border mx-1 md:mx-2" />
 
 				<button
-					onClick={() => {
-						localStorage.removeItem('token')
-						router.push('/')
-					}}
+					onClick={handleLogout}
 					className="flex items-center gap-2 text-muted-foreground hover:text-destructive transition-colors group"
 					title="Terminate Session"
 				>
