@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { userStore } from '@/stores/user-store'
 import ChannelSidebar, { Channel } from '@/components/dashboard-comps/ChannelSidebar'
 import ChannelView from '@/components/dashboard-comps/ChannelView'
+import { Toaster } from 'sonner'
 
 const DashboardPage = () => {
 

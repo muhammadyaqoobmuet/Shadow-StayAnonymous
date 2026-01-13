@@ -6,6 +6,7 @@ import Container from "@/components/lading-page-comps/Container";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 
+
 export default function DashboardLayout({
 	children,
 }: Readonly<{
@@ -15,16 +16,22 @@ export default function DashboardLayout({
 	const [queryClient] = useState(() => new QueryClient());
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<div className="min-h-screen bg-gray-50/50">
-				<DashboardNavBar />
-				<main>
+		<>
+			<QueryClientProvider client={queryClient}>
+				<div className="min-h-screen bg-background relative selection:bg-white selection:text-black">
+					<div className="absolute inset-0 bg-grid-pattern bg-grid-sm opacity-[0.03] pointer-events-none" />
+					<DashboardNavBar />
+					<main className="relative z-10">
+						<div className="h-[calc(100vh-3.5rem)]">{children}</div>
+					</main>
+				</div>
 
-					<div className="h-full">{children}</div>
-
-				</main>
 				<Toaster richColors position="top-center" />
-			</div>
-		</QueryClientProvider>
+			</QueryClientProvider>
+
+		</>
+
+
+
 	);
 }
