@@ -54,7 +54,7 @@ export function CreateRoom() {
 		const executeCreateRoom = async (latitude: number, longitude: number) => {
 			try {
 				const res = await axios.post(
-					`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/room/create-room`,
+					`${process.env.NEXT_PUBLIC_API_URL || 'https://seal-app-66ijj.ondigitalocean.app/'}/api/room/create-room`,
 					{
 						name: data.name,
 						location: {
