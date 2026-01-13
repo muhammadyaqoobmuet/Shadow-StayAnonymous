@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import DashboardNavBar from "@/components/dashboard-comps/DashboardNavBar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
@@ -12,6 +13,14 @@ export default function DashboardClientLayout({
 }>) {
 	// Initialize QueryClient once and keep it stable across re-renders
 	const [queryClient] = useState(() => new QueryClient());
+	const router = useRouter();
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		if (!token) {
+			router.push("/");
+		}
+	}, [router]);
 
 	return (
 		<>
