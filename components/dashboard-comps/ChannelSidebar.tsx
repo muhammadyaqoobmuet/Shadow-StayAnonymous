@@ -58,7 +58,7 @@ const ChannelSidebar: React.FC<ChannelSidebarProps> = ({ selectedChannelId, onSe
 		queryKey: ['allRooms', radius, lat, lng],
 		queryFn: async () => {
 			try {
-				const res = await axios.get<{ rooms: Room[] }>(`${process.env.NEXT_PUBLIC_API_URL || 'https://seal-app-66ijj.ondigitalocean.app/'}/api/room/rooms?longitude=${lat}&latitude=${lng}&radius=${radius}`, {
+				const res = await axios.get<{ rooms: Room[] }>(`${process.env.NEXT_PUBLIC_API_URL || 'https://seal-app-66ijj.ondigitalocean.app'}/api/room/rooms?longitude=${lat}&latitude=${lng}&radius=${radius}`, {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem('token')}`
 					}

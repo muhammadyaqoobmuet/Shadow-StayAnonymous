@@ -30,7 +30,7 @@ const LandingPage = () => {
 		setLoading(true)
 		setError(null)
 		try {
-			const res = await axios.get('https://seal-app-66ijj.ondigitalocean.app/api/auth/session')
+			const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'https://seal-app-66ijj.ondigitalocean.app'}/api/auth/session`)
 			const data = res.data
 
 			if (data && data.name && data.token) {

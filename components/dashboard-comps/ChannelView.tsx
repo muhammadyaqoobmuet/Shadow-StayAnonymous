@@ -40,7 +40,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ channel }) => {
 	const mutation = useMutation({
 		mutationKey: ['joinRoom'],
 		mutationFn: (roomId: string) => {
-			return axios.post<joinResponse>(`http://localhost:3000/api/room/${roomId}/join`, {}, {
+			return axios.post<joinResponse>(`${process.env.NEXT_PUBLIC_API_URL || 'https://seal-app-66ijj.ondigitalocean.app'}/api/room/${roomId}/join`, {}, {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('token')}`
 				}
@@ -65,7 +65,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ channel }) => {
 		if (!channel) return;
 		try {
 			setIsLoadingHistory(true)
-			const res = await axios.get(`http://localhost:3000/api/message/${channel.id}`, {
+			const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'https://seal-app-66ijj.ondigitalocean.app'}/api/message/${channel.id}`, {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('token')}`
 				}
@@ -94,7 +94,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ channel }) => {
 				setIsLoadingHistory(true);
 				setIsJoined(true);
 			} else {
-				axios.get(`http://localhost:3000/api/room/${channel.id}/membership`, {
+				axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'https://seal-app-66ijj.ondigitalocean.app'}/api/room/${channel.id}/membership`, {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem('token')}`
 					}
