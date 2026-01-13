@@ -16,6 +16,7 @@ const LandingPage = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 	const [isProtocolOpen, setIsProtocolOpen] = useState(false)
 	const [isEncryptionOpen, setIsEncryptionOpen] = useState(false)
+	const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false)
 	const router = useRouter()
 	const setName = userStore((state) => state.setName)
 
@@ -159,7 +160,7 @@ const LandingPage = () => {
 									>
 										{loading ? 'INITIALIZING...' : 'GET FREE ANONYMOUS ID'} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
 									</button>
-									<button className="h-14 sm:h-16 px-10 border border-border text-muted-foreground font-mono text-xs hover:border-primary hover:text-foreground transition-colors flex items-center justify-center gap-3">
+									<button onClick={() => setIsHowItWorksOpen(true)} className="h-14 sm:h-16 px-10 border border-border text-muted-foreground font-mono text-xs hover:border-primary hover:text-foreground transition-colors flex items-center justify-center gap-3">
 										HOW IT WORKS <EyeOff size={14} />
 									</button>
 								</div>
@@ -287,6 +288,36 @@ const LandingPage = () => {
 								<li>GeoJSON location indexing for proximity search</li>
 								<li>JWT-based session management (no personal data in tokens)</li>
 							</ul>
+						</div>
+					</div>
+				</DialogContent>
+			</Dialog>
+
+			{/* How It Works Dialog */}
+			<Dialog open={isHowItWorksOpen} onOpenChange={setIsHowItWorksOpen}>
+				<DialogContent className="bg-background border-border max-w-lg">
+					<DialogHeader>
+						<DialogTitle className="flex items-center gap-3 text-xl font-black tracking-tighter uppercase">
+							<Zap className="text-accent" size={20} />
+							Operational Sequence
+						</DialogTitle>
+					</DialogHeader>
+					<div className="grid grid-cols-2 gap-4 pt-2">
+						<div className="bg-surface border border-border p-4 space-y-1">
+							<div className="text-[10px] font-mono text-accent uppercase tracking-widest font-bold">01. ANONYMIZE</div>
+							<p className="text-xs text-muted-foreground leading-tight">Generate cryptographic identity. No sign-up.</p>
+						</div>
+						<div className="bg-surface border border-border p-4 space-y-1">
+							<div className="text-[10px] font-mono text-accent uppercase tracking-widest font-bold">02. LOCALIZE</div>
+							<p className="text-xs text-muted-foreground leading-tight">Scan for active frequencies in your radius.</p>
+						</div>
+						<div className="bg-surface border border-border p-4 space-y-1">
+							<div className="text-[10px] font-mono text-accent uppercase tracking-widest font-bold">03. TRANSMIT</div>
+							<p className="text-xs text-muted-foreground leading-tight">Join rooms. Broadcast encrypted signals.</p>
+						</div>
+						<div className="bg-surface border border-border p-4 space-y-1">
+							<div className="text-[10px] font-mono text-accent uppercase tracking-widest font-bold">04. VANISH</div>
+							<p className="text-xs text-muted-foreground leading-tight">All data self-destructs after 24 hours.</p>
 						</div>
 					</div>
 				</DialogContent>
