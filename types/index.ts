@@ -34,5 +34,8 @@ export type Room = {
 	distance: number
 	distanceInMeters: number
 	distanceInKm: number
+	joined: boolean
+	totalMembers: number
+	totalOnline: number
 }
 
