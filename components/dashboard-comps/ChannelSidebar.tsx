@@ -1,7 +1,7 @@
 "use client";
 
 import { userStore } from "@/stores/user-store";
-import { Hash, Search, ChevronDown, Plus, Dot, Radio, MapPin, Signal, User, Sun, Moon } from "lucide-react";
+import { Hash, Search, ChevronDown, Plus, Dot, Radio, MapPin, Signal, User, Sun, Moon, RefreshCw } from "lucide-react";
 import { SelectRadius } from "./SelectRadius";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -54,7 +54,7 @@ const ChannelSidebar: React.FC<ChannelSidebarProps> = ({ selectedChannelId, onSe
 		}
 	}
 
-	const { isError, data, isLoading } = useQuery({
+	const { isError, data, isLoading, refetch, isRefetching } = useQuery({
 		queryKey: ['allRooms', radius, lat, lng],
 		queryFn: async () => {
 			try {
@@ -144,9 +144,19 @@ const ChannelSidebar: React.FC<ChannelSidebarProps> = ({ selectedChannelId, onSe
 							<div className="py-2">
 								<div className="px-4 py-3 flex items-center justify-between group">
 									<h2 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] font-mono">Detected Signals</h2>
-									<span className="text-[10px] font-mono text-zinc-500 bg-white/5 px-2 py-0.5 border border-white/5">
-										{filteredRooms.length} <span className="opacity-50">ACTIVE</span>
-									</span>
+									<div className="flex items-center gap-2">
+										<button
+											onClick={() => refetch()}
+											disabled={isLoading || isRefetching}
+											className="text-zinc-500 hover:text-white transition-colors disabled:opacity-50"
+											title="Refresh Signals"
+										>
+											<RefreshCw size={12} className={isLoading || isRefetching ? "animate-spin" : ""} />
+										</button>
+										<span className="text-[10px] font-mono text-zinc-500 bg-white/5 px-2 py-0.5 border border-white/5">
+											{filteredRooms.length} <span className="opacity-50">ACTIVE</span>
+										</span>
+									</div>
 								</div>
 
 								<div className="space-y-0.5 px-2">
