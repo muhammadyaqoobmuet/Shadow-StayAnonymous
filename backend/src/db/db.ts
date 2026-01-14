@@ -2,14 +2,13 @@ import mongoose from "mongoose";
 
 export async function connectDb() {
 	try {
-		const db = await mongoose.connect(process.env.MONGO_URI);
-		if (db.ConnectionStates.connected == 1) {
-			console.log("db connected")
-		} else if (db.ConnectionStates.disconnected == 0) {
-			console.log("db disconnected")
-		}
+		await mongoose.connect(process.env.MONGO_URI, {
+			autoIndex: true
+		});
+
+		console.log("db connected ✅");
 	} catch (error) {
-		console.log(error)
-		process.exit(1)
+		console.error("db connection failed ❌", error);
+		process.exit(1);
 	}
 }
